@@ -1,0 +1,8 @@
+name: FCIPVP
+author: HappyHappyBoy
+version: 1.0
+
+main: me.happyhappyboy.main.FCIPvP
+commands:
+  fcipvp:
+    description: Main Command Off FCIPVP
