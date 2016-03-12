@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import de.happyhappyboy.main.FCIPvP;
 import de.slikey.effectlib.Effect;
 import de.slikey.effectlib.EffectManager;
-import de.slikey.effectlib.effect.DnaEffect;
 import de.slikey.effectlib.effect.HelixEffect;
 
 public class CommandFcipvp implements CommandExecutor {
