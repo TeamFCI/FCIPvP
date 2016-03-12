@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.happyhappyboy.main.FCIPvP;
-import de.slikey.effectlib.Effect;
 import de.slikey.effectlib.EffectManager;
 import de.slikey.effectlib.effect.HelixEffect;
 
@@ -31,9 +30,10 @@ public class CommandFcipvp implements CommandExecutor {
 			if(args.length == 1) {
 				if(p.hasPermission("fci.fcipvp.example")) {
 					
-					Effect eff = new HelixEffect(em);
+					HelixEffect eff = new HelixEffect(em);
 					eff.setLocation(p.getLocation());
 					eff.start();
+					p.sendMessage("Spiele HelixEffect");
 					
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
