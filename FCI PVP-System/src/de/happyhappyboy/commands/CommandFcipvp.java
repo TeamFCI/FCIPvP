@@ -24,6 +24,7 @@ public class CommandFcipvp implements CommandExecutor {
 					p.sendMessage("§b/fcipvp helix");
 					p.sendMessage("§b/fcipvp dna");
 					p.sendMessage("§b/fcipvp atom");
+					System.out.println("Aloha");
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
 				}
