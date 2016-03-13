@@ -7,9 +7,9 @@
 			<attribute name="javadoc_location" value="https://hub.spigotmc.org/javadocs/spigot/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Eclipse Spigot APIs/EffectLib-3.4.jar">
+	<classpathentry kind="lib" path="lib/EffectLib-3.4.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file://C:/Eclipse Spigot APIs/EffectLib Javadoc"/>
+			<attribute name="javadoc_location" value="file:/C:/Eclipse%20Spigot%20APIs/EffectLib%20Javadoc/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
