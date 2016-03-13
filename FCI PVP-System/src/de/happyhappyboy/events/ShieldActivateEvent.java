@@ -1,11 +1,14 @@
 package de.happyhappyboy.events;
 
+import java.io.File;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -63,24 +66,33 @@ public class ShieldActivateEvent implements Listener {
 						p2.playSound(p.getLocation(), Sound.WITHER_SPAWN, 1, 1);
 					}
 					for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
-						ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
+						if(ent instanceof Player) {
+							ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
+						}
 					}
+					File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//Classes//Mage//Players"+p.getName()+"config.yml");
+					FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+					final int duration = cfg.getInt("Player.Class.Magier.Abilities.Shield.Duration");
+					final String shieldType = cfg.getString("Player.Class.Magier.Abilities.Shield.Type");
+					
 					shield.put(p.getName(), new BukkitRunnable() {
-
-						@SuppressWarnings("unused") int count = 0;
+						int count = 0;
+						
 						@Override
 						public void run() {
-							eff1.setLocation(p.getLocation());
-							eff2.cancel();
-							for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
-								ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
+							if(shieldType.equals("Shield.KNOCKBACK")) {
+								eff1.setLocation(p.getLocation());
+								eff2.cancel();
+								for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
+									ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
+								}
+								if(count == duration) {
+									eff1.cancel();
+									shield.get(p.getName()).cancel();
+									shield.remove(p.getName());
+								}
+								count++;
 							}
-							if(count == 2) {
-								eff1.cancel();
-								shield.get(p.getName()).cancel();
-								shield.remove(p.getName());
-							}
-							count++;
 						}
 						
 					});
