@@ -1,4 +1,4 @@
-package de.happyhappyboy.events;
+package de.teamfci.events;
 
 import java.io.File;
 import java.util.HashMap;
@@ -18,12 +18,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import de.happyhappyboy.main.FCIPVP;
 import de.slikey.effectlib.effect.ShieldEffect;
 import de.slikey.effectlib.effect.ShieldEntityEffect;
 import de.slikey.effectlib.effect.WarpEffect;
 import de.slikey.effectlib.effect.WarpEntityEffect;
 import de.slikey.effectlib.util.ParticleEffect;
+import de.teamfci.main.FCIPVP;
 
 public class ShieldActivateEvent implements Listener {
 	public static HashMap<String, BukkitRunnable> shield = new HashMap<String, BukkitRunnable>();

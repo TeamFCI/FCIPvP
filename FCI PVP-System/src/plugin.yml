@@ -3,7 +3,7 @@ author: HappyHappyBoy
 version: 1.3
 Depends: [EffectLib]
 
-main: de.happyhappyboy.main.FCIPVP
+main: de.teamfci.main.FCIPVP
 commands:
   fcipvp:
     description: Main Command Off FCIPVP

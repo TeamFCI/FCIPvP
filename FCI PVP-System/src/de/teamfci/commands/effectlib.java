@@ -1,4 +1,4 @@
-package de.happyhappyboy.commands;
+package de.teamfci.commands;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.happyhappyboy.main.FCIPVP;
 import de.slikey.effectlib.effect.AnimatedBallEffect;
 import de.slikey.effectlib.effect.ArcEffect;
 import de.slikey.effectlib.effect.AtomEffect;
@@ -50,6 +49,7 @@ import de.slikey.effectlib.effect.VortexEffect;
 import de.slikey.effectlib.effect.WarpEffect;
 import de.slikey.effectlib.effect.WaveEffect;
 import de.slikey.effectlib.util.ParticleEffect;
+import de.teamfci.main.FCIPVP;
 
 
 

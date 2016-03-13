@@ -1,4 +1,4 @@
-package de.happyhappyboy.main;
+package de.teamfci.main;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +12,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.happyhappyboy.commands.CommandFcipvp;
-import de.happyhappyboy.commands.effectlib;
-import de.happyhappyboy.events.ShieldActivateEvent;
 import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
+import de.teamfci.commands.CommandFcipvp;
+import de.teamfci.commands.effectlib;
+import de.teamfci.events.ShieldActivateEvent;
 
 
 
