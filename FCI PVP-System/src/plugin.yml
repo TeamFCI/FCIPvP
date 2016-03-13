@@ -7,3 +7,5 @@ main: de.happyhappyboy.main.FCIPVP
 commands:
   fcipvp:
     description: Main Command Off FCIPVP
+  par:
+    description: Main Command Off FCIPVP

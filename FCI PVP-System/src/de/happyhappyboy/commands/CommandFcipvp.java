@@ -16,7 +16,7 @@ public class CommandFcipvp implements CommandExecutor {
 				if(p.hasPermission("fci.fcipvp.fcipvp")) {
 					p.sendMessage("§b/fcipvp start");
 					p.sendMessage("§b/fcipvp stop");
-					p.sendMessage("§b/fcipvp set location|world|time|stats|Flag Value");
+					p.sendMessage("§b/fcipvp set spawn|world|time|stats|Flag Value");
 					p.sendMessage("§b/fcipvp info");
 					p.sendMessage("§b/fcipvp debug");
 					p.sendMessage("§b/fcipvp topten");
@@ -28,7 +28,7 @@ public class CommandFcipvp implements CommandExecutor {
 				}
 			}
 			if(args.length == 1) {
-				if(p.hasPermission("fci.fcipvp.example")) {
+				if(p.hasPermission("fci.fcipvp.set.spawn")) {
 					
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");

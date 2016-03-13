@@ -3,13 +3,12 @@ package de.happyhappyboy.commands;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import main.main;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import de.happyhappyboy.main.FCIPVP;
 import de.slikey.effectlib.effect.AnimatedBallEffect;
 import de.slikey.effectlib.effect.ArcEffect;
 import de.slikey.effectlib.effect.AtomEffect;
@@ -55,9 +54,9 @@ import de.slikey.effectlib.util.ParticleEffect;
 
 
 public class effectlib implements CommandExecutor {
-	main pl;
+	FCIPVP pl;
 	
-	public effectlib(main pl) {
+	public effectlib(FCIPVP pl) {
 		this.pl = pl;
 	}
 	ArrayList<String> list = new ArrayList<String>();
@@ -67,20 +66,20 @@ public class effectlib implements CommandExecutor {
 	
 	if(args.length == 0 ) {
 		if(p.hasPermission("effect.par")) {
-			p.sendMessage("Â§c/par help");
+			p.sendMessage("§c/par help");
 		}else {
-			p.sendMessage("Â§8Â§oDu hast leider keine Â§4Â§oPermission");
+			p.sendMessage("§8§oDu hast leider keine §4§oPermission");
 		}
 	}
 	if(args.length >= 1 ) {
 		if(p.hasPermission("effect.par")) {
 			if(args[0].equalsIgnoreCase("help")) {
 				list.clear();
-				list.add("Â§c/par Â§f<Â§7textÂ§4Â§4, Â§7Â§7dnaÂ§4Â§4, Â§7Â§7tornadoÂ§4Â§4, Â§7Â§7vortexÂ§4Â§4, Â§7Â§7warpÂ§4Â§4, Â§7Â§7ballÂ§4Â§4, Â§7Â§7atomÂ§4Â§4, Â§7Â§7bleedÂ§4Â§4, Â§7Â§7waveÂ§4Â§4, Â§7Â§7circleÂ§4Â§4, Â§7Â§7arcÂ§4Â§4, Â§7Â§7discoÂ§4Â§4, Â§7Â§7loveÂ§4Â§4, Â§7Â§7dragonÂ§4Â§4, Â§7Â§7bigbangÂ§4Â§4, Â§7Â§7cloudÂ§4Â§4, Â§7Â§7cubeÂ§4Â§4, Â§7Â§7coneÂ§4Â§4, Â§7Â§7helixÂ§4Â§4, Â§7Â§7fontainÂ§4Â§4, Â§7Â§7earthÂ§4Â§4, Â§7Â§7gridÂ§4Â§4, Â§7Â§7flameÂ§4Â§4, Â§7Â§7hillÂ§4Â§4, Â§7Â§7heartÂ§4Â§4, Â§7Â§7explodeÂ§4Â§4, Â§7Â§7iconÂ§4Â§4, Â§7Â§7imageÂ§4Â§4, Â§7Â§7schieldÂ§4Â§4, Â§7Â§7lineÂ§4Â§4, Â§7Â§7colorimageÂ§4Â§4, Â§7Â§7jumoÂ§4Â§4, Â§7Â§7musicÂ§4Â§4, Â§7Â§7skyrocketÂ§4Â§4, Â§7Â§7sphereÂ§4Â§4, Â§7Â§7smokeÂ§4Â§4, Â§7Â§7turnÂ§4Â§4, Â§7Â§7traceÂ§4Â§4, Â§7Â§7star>");
+				list.add("§c/par §f<§7text§4§4, §7§7dna§4§4, §7§7tornado§4§4, §7§7vortex§4§4, §7§7warp§4§4, §7§7ball§4§4, §7§7atom§4§4, §7§7bleed§4§4, §7§7wave§4§4, §7§7circle§4§4, §7§7arc§4§4, §7§7disco§4§4, §7§7love§4§4, §7§7dragon§4§4, §7§7bigbang§4§4, §7§7cloud§4§4, §7§7cube§4§4, §7§7cone§4§4, §7§7helix§4§4, §7§7fontain§4§4, §7§7earth§4§4, §7§7grid§4§4, §7§7flame§4§4, §7§7hill§4§4, §7§7heart§4§4, §7§7explode§4§4, §7§7icon§4§4, §7§7image§4§4, §7§7schield§4§4, §7§7line§4§4, §7§7colorimage§4§4, §7§7jumo§4§4, §7§7music§4§4, §7§7skyrocket§4§4, §7§7sphere§4§4, §7§7smoke§4§4, §7§7turn§4§4, §7§7trace§4§4, §7§7star>");
 				p.sendMessage(list + "");
 			}
 			if(args[0].equals("text")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 String msg = "";
 				 for(int i = 1; i < args.length; i++){
 					 msg = msg + " " + args[i];
@@ -92,79 +91,79 @@ public class effectlib implements CommandExecutor {
 				 effect.start();
 			}
 			if(args[0].equals("dna")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 DnaEffect effect = new DnaEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("tornado")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 TornadoEffect effect = new TornadoEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("vortex")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 VortexEffect effect = new VortexEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("warp")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 WarpEffect effect = new WarpEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("ball")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 AnimatedBallEffect effect = new AnimatedBallEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("atom")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 AtomEffect effect = new AtomEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("bleed")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 BleedEffect effect = new BleedEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("wave")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 WaveEffect effect = new WaveEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("circle")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 CircleEffect effect = new CircleEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("arc")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 ArcEffect effect = new ArcEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("disco")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 DiscoBallEffect effect = new DiscoBallEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("donut")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 DonutEffect effect = new DonutEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("love")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 LoveEffect effect = new LoveEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
@@ -175,79 +174,80 @@ public class effectlib implements CommandExecutor {
 			 */
 			
 			if(args[0].equals("dragon")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 DragonEffect effect = new DragonEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("bigbang")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 BigBangEffect effect = new BigBangEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("cloud")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 CloudEffect effect = new CloudEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("cube")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 CubeEffect effect = new CubeEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("cone")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 ConeEffect effect = new ConeEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
+				 effect.particle = ParticleEffect.CRIT_MAGIC;
 				 effect.start();
 			}
 			if(args[0].equals("helix")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 HelixEffect effect = new HelixEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("fontain")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 FountainEffect effect = new FountainEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("earth")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 EarthEffect effect = new EarthEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("grid")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 GridEffect effect = new GridEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("flame")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 FlameEffect effect = new FlameEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("hill")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 HillEffect effect = new HillEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("heart")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 HeartEffect effect = new HeartEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("explode")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 ExplodeEffect effect = new ExplodeEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
@@ -258,13 +258,13 @@ public class effectlib implements CommandExecutor {
 			 */
 			
 			if(args[0].equals("icon")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 IconEffect effect = new IconEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("image")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 ImageEffect effect = null;
 				try {
 					effect = new ImageEffect(pl.em);
@@ -276,19 +276,19 @@ public class effectlib implements CommandExecutor {
 				 effect.start();
 			}
 			if(args[0].equals("schield")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 ShieldEffect effect = new ShieldEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 0.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("line")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 LineEffect effect = new LineEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("colorimage")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 ColoredImageEffect effect = null;
 				try {
 					effect = new ColoredImageEffect(pl.em);
@@ -300,56 +300,56 @@ public class effectlib implements CommandExecutor {
 				 effect.start();
 			}
 			if(args[0].equals("jump")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 JumpEffect effect = new JumpEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("music")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 MusicEffect effect = new MusicEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("skyrocket")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 SkyRocketEffect effect = new SkyRocketEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("sphere")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 SphereEffect effect = new SphereEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("smoke")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 SmokeEffect effect = new SmokeEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("turn")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 TurnEffect effect = new TurnEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("trace")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 TraceEffect effect = new TraceEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			if(args[0].equals("star")) {
-				 p.sendMessage("Â§8Â§oZauberei!");
+				 p.sendMessage("§8§oZauberei!");
 				 StarEffect effect = new StarEffect(pl.em);
 				 effect.setLocation(p.getLocation().add(0.0, 1.0, 0.0));
 				 effect.start();
 			}
 			
 		}else {
-			p.sendMessage("Â§8Â§oDu hast leider keine Â§4Â§oPermission");
+			p.sendMessage("§8§oDu hast leider keine §4§oPermission");
 		}
 	}
 		

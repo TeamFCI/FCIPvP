@@ -20,7 +20,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import de.happyhappyboy.main.FCIPVP;
 import de.slikey.effectlib.effect.ShieldEffect;
+import de.slikey.effectlib.effect.ShieldEntityEffect;
 import de.slikey.effectlib.effect.WarpEffect;
+import de.slikey.effectlib.effect.WarpEntityEffect;
 import de.slikey.effectlib.util.ParticleEffect;
 
 public class ShieldActivateEvent implements Listener {
@@ -54,12 +56,10 @@ public class ShieldActivateEvent implements Listener {
 						p.setFoodLevel(p.getFoodLevel()-2);
 						p.sendMessage("§7Dir wurden §c-2 Keulen §7abgezogen! Du hast noch §a"+p.getFoodLevel()+" Keulen");
 					}
-					final ShieldEffect eff1 = new ShieldEffect(FCIPVP.em);
-					eff1.setLocation(p.getLocation());
+					final ShieldEntityEffect eff1 = new ShieldEntityEffect(FCIPVP.em, p);
 					eff1.particle = ParticleEffect.CRIT_MAGIC;
 					eff1.start();
-					final WarpEffect eff2 = new WarpEffect(FCIPVP.em);
-					eff2.setLocation(p.getLocation());
+					final WarpEntityEffect eff2 = new WarpEntityEffect(FCIPVP.em, p);
 					eff2.particle = ParticleEffect.SPELL_WITCH;
 					eff2.start();
 					for(Player p2 : Bukkit.getOnlinePlayers()) {
@@ -70,7 +70,7 @@ public class ShieldActivateEvent implements Listener {
 							ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
 						}
 					}
-					File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//Classes//Mage//Players"+p.getName()+"config.yml");
+					File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//"+p.getName()+"Classes//Mage//config.yml");
 					FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 					final int duration = cfg.getInt("Player.Class.Magier.Abilities.Shield.Duration");
 					final String shieldType = cfg.getString("Player.Class.Magier.Abilities.Shield.Type");
@@ -81,7 +81,6 @@ public class ShieldActivateEvent implements Listener {
 						@Override
 						public void run() {
 							if(shieldType.equals("Shield.KNOCKBACK")) {
-								eff1.setLocation(p.getLocation());
 								eff2.cancel();
 								for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
 									ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
