@@ -1,4 +1,4 @@
-package commands;
+package de.happyhappyboy.commands;
 
 import java.io.IOException;
 import java.util.ArrayList;
