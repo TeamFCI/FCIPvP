@@ -1,4 +1,4 @@
-package de.teamfci.main;
+package de.teamfci.fcipvp;
 
 import java.io.File;
 import java.io.IOException;

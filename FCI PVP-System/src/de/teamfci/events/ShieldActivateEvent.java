@@ -1,3 +1,4 @@
+
 package de.teamfci.events;
 
 import java.io.File;
@@ -19,11 +20,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import de.slikey.effectlib.effect.ShieldEffect;
-import de.slikey.effectlib.effect.ShieldEntityEffect;
 import de.slikey.effectlib.effect.WarpEffect;
-import de.slikey.effectlib.effect.WarpEntityEffect;
+import de.slikey.effectlib.util.DynamicLocation;
 import de.slikey.effectlib.util.ParticleEffect;
-import de.teamfci.main.FCIPVP;
+import de.teamfci.fcipvp.FCIPVP;
 
 public class ShieldActivateEvent implements Listener {
 	public static HashMap<String, BukkitRunnable> shield = new HashMap<String, BukkitRunnable>();
@@ -56,10 +56,13 @@ public class ShieldActivateEvent implements Listener {
 						p.setFoodLevel(p.getFoodLevel()-2);
 						p.sendMessage("§7Dir wurden §c-2 Keulen §7abgezogen! Du hast noch §a"+p.getFoodLevel()+" Keulen");
 					}
-					final ShieldEntityEffect eff1 = new ShieldEntityEffect(FCIPVP.em, p);
+					DynamicLocation loc = new DynamicLocation(p.getLocation());
+					final ShieldEffect eff1 = new ShieldEffect(FCIPVP.em);
+					eff1.setDynamicOrigin(loc);
 					eff1.particle = ParticleEffect.CRIT_MAGIC;
 					eff1.start();
-					final WarpEntityEffect eff2 = new WarpEntityEffect(FCIPVP.em, p);
+					final WarpEffect eff2 = new WarpEffect(FCIPVP.em);
+					eff2.setDynamicOrigin(loc);
 					eff2.particle = ParticleEffect.SPELL_WITCH;
 					eff2.start();
 					for(Player p2 : Bukkit.getOnlinePlayers()) {
@@ -81,17 +84,22 @@ public class ShieldActivateEvent implements Listener {
 						@Override
 						public void run() {
 							if(shieldType.equals("Shield.KNOCKBACK")) {
-								eff2.cancel();
-								for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
-									ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
-								}
-								if(count == duration) {
-									eff1.cancel();
-									shield.get(p.getName()).cancel();
-									shield.remove(p.getName());
-								}
-								count++;
 							}
+							eff2.cancel();
+							for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
+								if(ent instanceof Player) {
+									Player pe = (Player) ent;
+									pe.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
+									pe.damage(2.0);
+								}
+							}
+							if(count == 60) {
+								eff1.cancel();
+								eff2.cancel();
+								shield.get(p.getName()).cancel();
+								shield.remove(p.getName());
+							}
+							count++;
 						}
 						
 					});

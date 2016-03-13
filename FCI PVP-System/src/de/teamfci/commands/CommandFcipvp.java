@@ -1,11 +1,16 @@
 package de.teamfci.commands;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import de.teamfci.dataprovider.dataprovider;
+
 public class CommandFcipvp implements CommandExecutor {
+	static String prefix = "§a[§bFCI PVP§a] §b";
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -13,15 +18,22 @@ public class CommandFcipvp implements CommandExecutor {
 		if(sender instanceof Player) {
 			final Player p = (Player) sender; 
 			if(args.length == 0) {
-				if(p.hasPermission("fci.fcipvp.fcipvp")) {
-					p.sendMessage("§b/fcipvp start");
-					p.sendMessage("§b/fcipvp stop");
-					p.sendMessage("§b/fcipvp set spawn|world|time|stats|Flag Value");
-					p.sendMessage("§b/fcipvp info");
-					p.sendMessage("§b/fcipvp debug");
-					p.sendMessage("§b/fcipvp topten");
-					p.sendMessage("§b/fcipvp tournament on|off");
-					p.sendMessage("§b/fcipvp reload");
+				if(p.hasPermission("fci.fcipvp.fcipvp")) {					
+					p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
+					p.sendMessage("§bPlugin von §aTeamFCI");
+					p.sendMessage("§bAuftrag von §aTNT_Creepy");
+					if(!p.hasPermission("fci.fcipvp.get.admincommands")){
+						p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
+						return true;
+					}
+					p.sendMessage(prefix + "/fcipvp start");
+					p.sendMessage(prefix + "/fcipvp stop");
+					p.sendMessage(prefix + "/fcipvp set spawn (Team)|world|time|stats|Flag Value");
+					p.sendMessage(prefix + "/fcipvp debug");
+					p.sendMessage(prefix + "/fcipvp topten");
+					p.sendMessage(prefix + "/fcipvp tournament on|off");
+					p.sendMessage(prefix + "/fcipvp reload");
+					p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
 					
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
@@ -29,7 +41,68 @@ public class CommandFcipvp implements CommandExecutor {
 			}
 			if(args.length == 1) {
 				if(p.hasPermission("fci.fcipvp.set.spawn")) {
-					
+					if(args[0].equalsIgnoreCase("set")) {
+						p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");	
+						p.sendMessage(prefix + "/fcipvp set spawn (Team)");
+						p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");	
+					}
+				} else {
+					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
+				}
+				if(p.hasPermission("fci.fcipvp.start")) {
+					if(args[0].equalsIgnoreCase("start")) {
+						Location l1 = dataprovider.getSpawnLocation("blau", p);
+						Location l2 = dataprovider.getSpawnLocation("grün", p);
+						Location l3 = dataprovider.getSpawnLocation("rot", p);
+						Player hhb = Bukkit.getPlayer("HappyHappyBoy");
+						Player tnt = Bukkit.getPlayer("TNT_Creepy");
+						Player fil = Bukkit.getPlayer("FilipZocktan");
+						if(hhb != null) {
+							hhb.teleport(l1);
+							hhb.sendMessage("§eDu bist Team §bBlau");
+						}
+						if(tnt != null) {
+							tnt.teleport(l2);
+							tnt.sendMessage("§eDu bist Team §aGrün");
+						}
+						if(fil != null) {
+							fil.teleport(l3);
+							fil.sendMessage("§eDu bist Team §cRot");
+						}
+					}
+				} else {
+					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
+				}
+			}
+			if(args.length == 2) {
+				if(p.hasPermission("fci.fcipvp.set.spawn")) {
+					if(args[0].equalsIgnoreCase("set")) {
+						if(args[1].equalsIgnoreCase("spawn")) {
+							p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");	
+							p.sendMessage(prefix + "/fcipvp set spawn (Team)");
+							p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");	
+						}
+					}
+				} else {
+					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
+				}
+			}
+			if(args.length == 3) {
+				if(p.hasPermission("fci.fcipvp.set.spawn")) {
+					if(args[0].equalsIgnoreCase("set")) {
+						if(args[1].equalsIgnoreCase("spawn")) {
+							String team = args[2];
+							if(team.equalsIgnoreCase("grün")) {
+								dataprovider.setSpawnLocation(team, p.getLocation(), p);
+							}
+							if(team.equalsIgnoreCase("blau")) {
+								dataprovider.setSpawnLocation(team, p.getLocation(), p);
+							}
+							if(team.equalsIgnoreCase("rot")) {
+								dataprovider.setSpawnLocation(team, p.getLocation(), p);
+							}
+						}
+					}
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
 				}
