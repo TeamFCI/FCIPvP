@@ -25,6 +25,9 @@ public class FCIPVP extends JavaPlugin {
 	public static EffectManager em;
 	
 	public void onEnable() {
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			checkPlayerFiles(p);
+		}
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvents(new ShieldActivateEvent(this), this);
 		this.getCommand("fcipvp").setExecutor(new CommandFcipvp());
@@ -54,10 +57,9 @@ public class FCIPVP extends JavaPlugin {
 		p.sendMessage("§6Deine Spielerdatei wurde gefunden! §aPositiv");
 	}
 	public static void checkConfigs() {
-		File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//"+p.getName());
+		File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//config.yml");
 		FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 		if(!file.exists()) {
-			cfg.set("Player.Name", p.getName());
 			cfg.set("Player.Class", "NONE");
 			try {
 				cfg.save(file);
@@ -65,7 +67,9 @@ public class FCIPVP extends JavaPlugin {
 				e.printStackTrace();
 			}
 		}
-		p.sendMessage("§6Die FCI-PvP Configs wurde gefunden! §aPositiv");
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			p.sendMessage("§6Die FCI-PvP Configs wurde gefunden! §aPositiv");
+		}
 	}
 	
 }

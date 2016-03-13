@@ -70,10 +70,10 @@ public class ShieldActivateEvent implements Listener {
 							ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
 						}
 					}
-					File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//"+p.getName()+"Classes//Mage//config.yml");
+					File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//"+p.getName()+"config.yml");
 					FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 					final int duration = cfg.getInt("Player.Class.Magier.Abilities.Shield.Duration");
-					final String shieldType = cfg.getString("Player.Class.Magier.Abilities.Shield.Type");
+			        final String shieldType = cfg.getString("Player.Class.Magier.Abilities.Shield.Type");
 					
 					shield.put(p.getName(), new BukkitRunnable() {
 						int count = 0;
