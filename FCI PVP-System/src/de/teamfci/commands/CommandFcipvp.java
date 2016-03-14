@@ -58,16 +58,43 @@ public class CommandFcipvp implements CommandExecutor {
 						Player tnt = Bukkit.getPlayer("TNT_Creepy");
 						Player fil = Bukkit.getPlayer("FilipZocktan");
 						if(hhb != null) {
+							dataprovider.set("location", "Player.Event.PVP.Lastlocation.Location", hhb, "", 0, false);
 							hhb.teleport(l1);
 							hhb.sendMessage("§eDu bist Team §bBlau");
 						}
 						if(tnt != null) {
+							dataprovider.set("location", "Player.Event.PVP.Lastlocation.Location", tnt, "", 0, false);
 							tnt.teleport(l2);
 							tnt.sendMessage("§eDu bist Team §aGrün");
 						}
 						if(fil != null) {
+							dataprovider.set("location", "Player.Event.Lastlocation.Location", fil, "", 0, false);
 							fil.teleport(l3);
 							fil.sendMessage("§eDu bist Team §cRot");
+						}
+					}
+				} else {
+					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
+				}
+				if(p.hasPermission("fci.fcipvp.stop")) {
+					if(args[0].equalsIgnoreCase("stop")) {
+						Player hhb = Bukkit.getPlayer("HappyHappyBoy");
+						Player tnt = Bukkit.getPlayer("TNT_Creepy");
+						Player fil = Bukkit.getPlayer("FilipZocktan");
+						if(hhb != null) {
+							Location l1 = dataprovider.getPlayerLocationFromConfig("pvp", hhb);
+							hhb.teleport(l1);
+							hhb.sendMessage("§cVerlassen");
+						}
+						if(tnt != null) {
+							Location l2 = dataprovider.getPlayerLocationFromConfig("pvp", tnt);
+							tnt.teleport(l2);
+							tnt.sendMessage("§cVerlassen");
+						}
+						if(fil != null) {
+							Location l3 = dataprovider.getPlayerLocationFromConfig("pvp", fil);
+							fil.teleport(l3);
+							fil.sendMessage("§cVerlassen");
 						}
 					}
 				} else {
