@@ -60,10 +60,13 @@ public class ShieldActivateEvent implements Listener {
 					final ShieldEffect eff1 = new ShieldEffect(FCIPVP.em);
 					eff1.setDynamicOrigin(loc);
 					eff1.particle = ParticleEffect.CRIT_MAGIC;
+					eff1.autoOrient = false;
 					eff1.start();
+					
 					final WarpEffect eff2 = new WarpEffect(FCIPVP.em);
 					eff2.setDynamicOrigin(loc);
 					eff2.particle = ParticleEffect.SPELL_WITCH;
+					eff2.autoOrient = false;
 					eff2.start();
 					for(Player p2 : Bukkit.getOnlinePlayers()) {
 						p2.playSound(p.getLocation(), Sound.WITHER_SPAWN, 1, 1);
@@ -83,9 +86,11 @@ public class ShieldActivateEvent implements Listener {
 						
 						@Override
 						public void run() {
-							if(shieldType.equals("Shield.KNOCKBACK")) {
-							}
-							eff2.cancel();
+							DynamicLocation loc = new DynamicLocation(p.getLocation());
+							eff1.setDynamicOrigin(loc);
+							eff1.autoOrient = false;
+							eff2.setDynamicOrigin(loc);
+							eff2.autoOrient = false;
 							for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
 								if(ent instanceof Player) {
 									Player pe = (Player) ent;
@@ -93,7 +98,7 @@ public class ShieldActivateEvent implements Listener {
 									pe.damage(2.0);
 								}
 							}
-							if(count == 60) {
+							if(count == 10) {
 								eff1.cancel();
 								eff2.cancel();
 								shield.get(p.getName()).cancel();

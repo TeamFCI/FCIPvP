@@ -25,6 +25,7 @@ public class FCIPVP extends JavaPlugin {
 	public static EffectManager em;
 	
 	public void onEnable() {
+		em = new EffectManager(EffectLib.instance());
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			checkPlayerFiles(p);
 		}
@@ -32,7 +33,6 @@ public class FCIPVP extends JavaPlugin {
 		pm.registerEvents(new ShieldActivateEvent(this), this);
 		this.getCommand("fcipvp").setExecutor(new CommandFcipvp());
 		this.getCommand("par").setExecutor(new effectlib(this));
-		em = new EffectManager(EffectLib.instance());
 	}
 	
 	public static ItemStack getBlutSplitter() {

@@ -1,8 +1,10 @@
 package de.teamfci.commands;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -195,8 +197,6 @@ public class effectlib implements CommandExecutor {
 				 p.sendMessage("§8§oZauberei!");
 				 DragonEffect effect = new DragonEffect(pl.em);
 				 effect.particle = ParticleEffect.ENCHANTMENT_TABLE;
-				 effect.speed = 4;
-				 effect.autoOrient = true;
 				 DynamicLocation loc = new DynamicLocation(p.getLocation());
 					effect.setDynamicOrigin(loc);
 					effect.start();
@@ -226,7 +226,7 @@ public class effectlib implements CommandExecutor {
 				 p.sendMessage("§8§oZauberei!");
 				 ConeEffect effect = new ConeEffect(pl.em);
 				 Location l = p.getLocation();
-				 l.setPitch(-90);
+//				 l.setPitch(-90);
 				 DynamicLocation loc = new DynamicLocation(l);
 					effect.setDynamicOrigin(loc);
 					effect.particle = ParticleEffect.CRIT_MAGIC;
@@ -303,16 +303,21 @@ public class effectlib implements CommandExecutor {
 			}
 			if(args[0].equals("image")) {
 				 p.sendMessage("§8§oZauberei!");
-				 ImageEffect effect = null;
-				try {
-					effect = new ImageEffect(pl.em);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				DynamicLocation loc = new DynamicLocation(p.getLocation());
-				effect.setDynamicOrigin(loc);
-				effect.start();
+			        try
+			        {
+			          ImageEffect imageEffect = new ImageEffect(FCIPVP.em);
+						DynamicLocation loc = new DynamicLocation(p.getLocation());
+						imageEffect.setDynamicTarget(loc);
+			            imageEffect.loadFile(new File("plugins/EffectLibTest/image.png"));
+			            imageEffect.enableRotation = true;
+			            imageEffect.start();
+			        }
+			        catch (IOException e)
+			        {
+			          p.sendMessage(ChatColor.RED + "The image was not loaded! Make sure you have " + "an image called image.png in your /plugins/EffectLibTest/ folder!");
+			          
+			          e.printStackTrace();
+			        }
 			}
 			if(args[0].equals("shield")) {
 				 p.sendMessage("§8§oZauberei!");
@@ -367,6 +372,8 @@ public class effectlib implements CommandExecutor {
 				 SphereEffect effect = new SphereEffect(pl.em);
 				 DynamicLocation loc = new DynamicLocation(p.getLocation());
 					effect.setDynamicOrigin(loc);
+					effect.radius = 5;
+					effect.particle = ParticleEffect.FLAME;
 					effect.start();
 			}
 			if(args[0].equals("smoke")) {

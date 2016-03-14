@@ -72,6 +72,7 @@ public class CommandFcipvp implements CommandExecutor {
 							fil.teleport(l3);
 							fil.sendMessage("§eDu bist Team §cRot");
 						}
+						Bukkit.broadcastMessage("§7[§6FCI-PVP§7] §8Das Event hat begonnen!");
 					}
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
@@ -96,6 +97,7 @@ public class CommandFcipvp implements CommandExecutor {
 							fil.teleport(l3);
 							fil.sendMessage("§cVerlassen");
 						}
+						Bukkit.broadcastMessage("§7[§6FCI-PVP§7] §8Das Event ist beendet worden!");
 					}
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
