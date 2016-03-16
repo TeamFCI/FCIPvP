@@ -6,11 +6,15 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Fireball;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,6 +23,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import de.slikey.effectlib.effect.DragonEffect;
 import de.slikey.effectlib.effect.ShieldEffect;
 import de.slikey.effectlib.effect.WarpEffect;
 import de.slikey.effectlib.util.DynamicLocation;
@@ -61,6 +66,8 @@ public class ShieldActivateEvent implements Listener {
 					eff1.setDynamicOrigin(loc);
 					eff1.particle = ParticleEffect.CRIT_MAGIC;
 					eff1.autoOrient = false;
+					eff1.radius = 4;
+					eff1.particles = 200;
 					eff1.start();
 					
 					final WarpEffect eff2 = new WarpEffect(FCIPVP.em);
@@ -72,7 +79,7 @@ public class ShieldActivateEvent implements Listener {
 						p2.playSound(p.getLocation(), Sound.WITHER_SPAWN, 1, 1);
 					}
 					for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
-						if(ent instanceof Player) {
+						if(ent instanceof Player || ent instanceof Arrow || ent instanceof Fireball || ent instanceof Monster) {
 							ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
 						}
 					}
@@ -83,6 +90,7 @@ public class ShieldActivateEvent implements Listener {
 					
 					shield.put(p.getName(), new BukkitRunnable() {
 						int count = 0;
+						int amount = 40 - eff1.radius;
 						
 						@Override
 						public void run() {
@@ -91,24 +99,42 @@ public class ShieldActivateEvent implements Listener {
 							eff1.autoOrient = false;
 							eff2.setDynamicOrigin(loc);
 							eff2.autoOrient = false;
-							for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
-								if(ent instanceof Player) {
-									Player pe = (Player) ent;
-									pe.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
-									pe.damage(2.0);
+							
+							DragonEffect eff3 = new DragonEffect(FCIPVP.em);
+							for(Entity ent : p.getNearbyEntities(eff1.radius, eff1.radius, eff1.radius)) {
+								if(ent instanceof Player || ent instanceof Monster) {
+									ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
 								}
 							}
-							if(count == 10) {
+							if(count >= amount) {
+								if(count <= 40) {
+									if(eff1.radius != 0) {
+										eff1.radius = eff1.radius - 1;
+									}
+								}
+							}
+							if(count == 40) {
+								eff3.duration = 1200;
 								eff1.cancel();
 								eff2.cancel();
+								Location l = p.getLocation();
+								l.setPitch(-90);
+								DynamicLocation loc1 = new DynamicLocation(l);
+								eff3.setDynamicOrigin(loc1);
+								eff3.iterations = 10;
+								eff3.particle = ParticleEffect.ENCHANTMENT_TABLE;
+								eff3.start();
+							}
+							if(count == 55) {
 								shield.get(p.getName()).cancel();
 								shield.remove(p.getName());
+								count = 0;
 							}
 							count++;
 						}
 						
 					});
-					shield.get(p.getName()).runTaskTimer(pl, 5L, 5L);
+					shield.get(p.getName()).runTaskTimer(pl, 1L, 1L);
 					
 				}
 			}
