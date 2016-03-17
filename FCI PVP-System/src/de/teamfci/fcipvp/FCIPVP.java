@@ -58,7 +58,7 @@ public class FCIPVP extends JavaPlugin {
 				e.printStackTrace();
 			}
 		}
-		p.sendMessage("§6Deine Spielerdatei wurde gefunden! §aPositiv");
+		p.sendMessage("¤6Deine Spielerdatei wurde gefunden! ¤aPositiv");
 	}
 	public static void checkConfigs() {
 		File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//config.yml");
@@ -72,7 +72,7 @@ public class FCIPVP extends JavaPlugin {
 			}
 		}
 		for(Player p : Bukkit.getOnlinePlayers()) {
-			p.sendMessage("§6Die FCI-PvP Configs wurde gefunden! §aPositiv");
+			p.sendMessage("¤6Die FCI-PvP Configs wurde gefunden! ¤aPositiv");
 		}
 	}
 	

@@ -1,11 +1,12 @@
 package de.teamfci.displayDamage;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import de.teamfci.fcipvp.FCIPVP;
@@ -17,29 +18,47 @@ public class DamageIndicator {
 		this.pl = pl;
 	}
 	
-	public static void indicator(final Player damager, Player entity, final double damage) {
+	public static void indicator(final Entity damager, Entity entity, final double damage) {
 		final Location loc = entity.getLocation();	
-		final ArmorStand a1 = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
-		a1.setGravity(false);
-		a1.setCustomName("§c-"+(int)damage);
-		a1.setCustomNameVisible(true);
-		a1.setVisible(true);
+		Random r = new Random();
+		double x = r.nextInt(2);
+		double y = r.nextInt(2);
+		double z = r.nextInt(1);
+		int b = r.nextInt(4);
+		if(b == 0) {
+			loc.setX(loc.getX() + x);
+			loc.setY(loc.getY() + y);
+			loc.setZ(loc.getZ() + z);
+		}
+		if(b == 1) {
+			loc.setX(loc.getX() - x);
+			loc.setY(loc.getY() - y);
+			loc.setZ(loc.getZ() - z);
+		}
+		if(b == 2) {
+			loc.setX(loc.getX() - x);
+			loc.setY(loc.getY() - y);
+			loc.setZ(loc.getZ() + z);
+		}
+		if(b == 3) {
+			loc.setX(loc.getX() + x);
+			loc.setY(loc.getY() + y);
+			loc.setZ(loc.getZ() - z);
+		}
+		final ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+		armorStand.setGravity(false);
+		armorStand.setCustomName("¤c-"+(int)damage);
+		armorStand.setCustomNameVisible(true);
+		armorStand.setVisible(false);
 		showDmg.put(damager.getName(), new BukkitRunnable() {
-			int count = 0;
-			Location l = loc;
 			@Override
 			public void run() {
-				a1.getLocation().setY(a1.getLocation().getY() + 0.1);
-				if(count == 10) {
-					a1.remove();
-					showDmg.get(damager.getName()).cancel();
-					showDmg.remove(damager.getName());
-				}
-				count ++;
+				armorStand.remove();
+				showDmg.remove(damager.getName());
 			}
 			
 		});
-		showDmg.get(damager.getName()).runTaskTimer(pl, 5L, 5L);
+		showDmg.get(damager.getName()).runTaskLater(pl, 10L);
 	}
 	
 }
