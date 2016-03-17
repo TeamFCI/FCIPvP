@@ -23,14 +23,13 @@ public class DamageIndicator {
 		a1.setGravity(false);
 		a1.setCustomName("§c-"+(int)damage);
 		a1.setCustomNameVisible(true);
-		a1.setVisible(false);
+		a1.setVisible(true);
 		showDmg.put(damager.getName(), new BukkitRunnable() {
 			int count = 0;
 			Location l = loc;
 			@Override
 			public void run() {
-				l.setY(l.getY() + 0.1);
-				a1.teleport(l);
+				a1.getLocation().setY(a1.getLocation().getY() + 0.1);
 				if(count == 10) {
 					a1.remove();
 					showDmg.get(damager.getName()).cancel();
