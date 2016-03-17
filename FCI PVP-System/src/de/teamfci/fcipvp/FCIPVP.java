@@ -16,6 +16,8 @@ import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
 import de.teamfci.commands.CommandFcipvp;
 import de.teamfci.commands.effectlib;
+import de.teamfci.displayDamage.DamageIndicator;
+import de.teamfci.events.DamageIndicatorEvent;
 import de.teamfci.events.ShieldActivateEvent;
 
 
@@ -31,8 +33,10 @@ public class FCIPVP extends JavaPlugin {
 		}
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvents(new ShieldActivateEvent(this), this);
+		pm.registerEvents(new DamageIndicatorEvent(), this);
 		this.getCommand("fcipvp").setExecutor(new CommandFcipvp());
 		this.getCommand("par").setExecutor(new effectlib(this));
+		DamageIndicator.pl = this;
 	}
 	
 	public static ItemStack getBlutSplitter() {

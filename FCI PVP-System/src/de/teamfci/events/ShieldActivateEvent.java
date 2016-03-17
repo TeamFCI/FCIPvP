@@ -11,9 +11,10 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Fireball;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -68,7 +69,6 @@ public class ShieldActivateEvent implements Listener {
 					eff1.autoOrient = false;
 					eff1.radius = 4;
 					eff1.particles = 200;
-					eff1.start();
 					
 					final WarpEffect eff2 = new WarpEffect(FCIPVP.em);
 					eff2.setDynamicOrigin(loc);
@@ -79,8 +79,8 @@ public class ShieldActivateEvent implements Listener {
 						p2.playSound(p.getLocation(), Sound.WITHER_SPAWN, 1, 1);
 					}
 					for(Entity ent : p.getNearbyEntities(3, 3, 3)) {
-						if(ent instanceof Player || ent instanceof Arrow || ent instanceof Fireball || ent instanceof Monster) {
-							ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
+						if(ent instanceof Player || ent.getType().equals(EntityType.ARROW) || ent.getType().equals(EntityType.FIREBALL) || ent instanceof Monster) {
+							ent.setVelocity(ent.getLocation().getDirection().multiply(-1D).setY(1D));
 						}
 					}
 					File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//"+p.getName()+"config.yml");
@@ -102,7 +102,8 @@ public class ShieldActivateEvent implements Listener {
 							
 							DragonEffect eff3 = new DragonEffect(FCIPVP.em);
 							for(Entity ent : p.getNearbyEntities(eff1.radius, eff1.radius, eff1.radius)) {
-								if(ent instanceof Player || ent instanceof Monster) {
+								if(ent instanceof Animals || ent instanceof Item) {
+								}else{
 									ent.setVelocity(ent.getLocation().getDirection().multiply(-1.6D).setY(1D));
 								}
 							}
@@ -113,10 +114,7 @@ public class ShieldActivateEvent implements Listener {
 									}
 								}
 							}
-							if(count == 40) {
-								eff3.duration = 1200;
-								eff1.cancel();
-								eff2.cancel();
+							if(count == 1) {
 								Location l = p.getLocation();
 								l.setPitch(-90);
 								DynamicLocation loc1 = new DynamicLocation(l);
@@ -125,6 +123,19 @@ public class ShieldActivateEvent implements Listener {
 								eff3.particle = ParticleEffect.ENCHANTMENT_TABLE;
 								eff3.start();
 							}
+							if(count == 5) {
+								eff1.start();
+							}
+							if(count >= 7 && count <= 10) {
+								if(eff1.radius != 0) {
+									eff1.radius = eff1.radius + 1;
+								}
+							}
+							if(count == 40) {
+								eff3.duration = 1200;
+								eff1.cancel();
+								eff2.cancel();
+							}
 							if(count == 55) {
 								shield.get(p.getName()).cancel();
 								shield.remove(p.getName());
@@ -132,13 +143,10 @@ public class ShieldActivateEvent implements Listener {
 							}
 							count++;
 						}
-						
 					});
 					shield.get(p.getName()).runTaskTimer(pl, 1L, 1L);
-					
 				}
 			}
 		}
 	}
-	
 }
