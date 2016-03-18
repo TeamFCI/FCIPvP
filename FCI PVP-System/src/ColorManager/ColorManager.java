@@ -4,13 +4,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import de.teamfci.fcipvp.FCIPVP;
+
 public class ColorManager {
+	public static FCIPVP pl;
+	public ColorManager(FCIPVP pl) {
+		this.pl = pl;
+	}
 	/*
 	 * CoreState-Editor
 	 */
