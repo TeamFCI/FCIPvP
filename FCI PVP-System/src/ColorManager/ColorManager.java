@@ -76,16 +76,16 @@ public class ColorManager {
 		try {
 			cfg.save(file);
 		} catch (IOException e) {
-			p.sendMessage("§cFehler beim Absepichern der Datei!");
-			p.sendMessage("§cplugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+coreState+"%.yml");
+			p.sendMessage("ßcFehler beim Absepichern der Datei!");
+			p.sendMessage("ßcplugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+coreState+"%.yml");
 			e.printStackTrace();
 		}
 //		if (!file.exists()) {
-//			Bukkit.broadcastMessage("§cDatei: "+coreState+".yml");
-//			Bukkit.broadcastMessage("§cPath: §7plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+coreState+".yml");
-//			Bukkit.broadcastMessage("§ckonnte nicht gefunden werden!");
+//			Bukkit.broadcastMessage("ßcDatei: "+coreState+".yml");
+//			Bukkit.broadcastMessage("ßcPath: ß7plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+coreState+".yml");
+//			Bukkit.broadcastMessage("ßckonnte nicht gefunden werden!");
 //		}
-		p.sendMessage("§aColorManager-Marker für CoreSate.'§f"+coreState+"%§a' wurde gesetzt!");
+		p.sendMessage("ßaColorManager-Marker für CoreSate.'ßf"+coreState+"%ßa' wurde gesetzt!");
 	}
 	
 	public static void enableColorChanging() {

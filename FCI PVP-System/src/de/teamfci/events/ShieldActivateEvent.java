@@ -56,11 +56,11 @@ public class ShieldActivateEvent implements Listener {
 					if(p.getGameMode() != GameMode.CREATIVE){
 						if(p.getFoodLevel() >= 1) {
 						} else {
-							p.sendMessage("¤7Du bist zu hungrig.. Iss n Snickers.");
+							p.sendMessage("§7Du bist zu hungrig.. Iss n Snickers.");
 							return;
 						}
 						p.setFoodLevel(p.getFoodLevel()-2);
-						p.sendMessage("¤7Dir wurden ¤c-2 Keulen ¤7abgezogen! Du hast noch ¤a"+p.getFoodLevel()+" Keulen");
+						p.sendMessage("§7Dir wurden §c-2 Keulen §7abgezogen! Du hast noch §a"+p.getFoodLevel()+" Keulen");
 					}
 					DynamicLocation loc = new DynamicLocation(p.getLocation());
 					final ShieldEffect eff1 = new ShieldEffect(FCIPVP.em);

@@ -33,7 +33,7 @@ public class inFieldChecker implements Listener {
 					ColorManager.inField = true;
 					ColorManager.inFieldPlayer = p;
 					ColorManager.infieldplayers.add(p.getName());
-					Bukkit.broadcastMessage("¤aiFP == " + p);
+					Bukkit.broadcastMessage("§aiFP == " + p);
 				} else {
 					if(i == maxPlayers) {
 						ColorManager.inField = false;
