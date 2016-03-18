@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import ColorManager.CommandFunctions;
+import ColorManager.ColorManager;
 import de.teamfci.dataprovider.dataprovider;
 
 public class CommandFcipvp implements CommandExecutor {
@@ -112,6 +113,20 @@ public class CommandFcipvp implements CommandExecutor {
 							p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");	
 							p.sendMessage(prefix + "/fcipvp set spawn (Team)");
 							p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");	
+						}
+					}
+				} else {
+					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
+				}
+				if(p.hasPermission("fci.fcipvp.turn.colormanager")) {
+					if(args[0].equalsIgnoreCase("enable")) {
+						if(args[1].equalsIgnoreCase("off")) {
+							ColorManager.enable = false;
+							p.sendMessage(prefix + "§aColorManager disabled");
+						}
+						if(args[1].equalsIgnoreCase("on")) {
+							ColorManager.enable = true;
+							p.sendMessage(prefix + "§aColorManager enabled");
 						}
 					}
 				} else {

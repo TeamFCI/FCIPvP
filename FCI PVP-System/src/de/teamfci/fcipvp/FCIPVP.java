@@ -12,7 +12,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import ColorManager.ColorManager;
 import ColorManager.RegisterTeamBlock;
+import ColorManager.inFieldChecker;
 import FlagState.EnergyCore;
 import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
@@ -37,9 +39,12 @@ public class FCIPVP extends JavaPlugin {
 		pm.registerEvents(new ShieldActivateEvent(this), this);
 		pm.registerEvents(new DamageIndicatorEvent(), this);
 		pm.registerEvents(new RegisterTeamBlock(), this);
+		pm.registerEvents(new inFieldChecker(), this);
 		this.getCommand("fcipvp").setExecutor(new CommandFcipvp());
 		this.getCommand("par").setExecutor(new effectlib(this));
 		DamageIndicator.pl = this;
+		ColorManager.pl = this;
+		ColorManager.enableColorChanging();
 		EnergyCore.checkEnergyCoreConfig();
 	}
 	
@@ -62,7 +67,7 @@ public class FCIPVP extends JavaPlugin {
 				e.printStackTrace();
 			}
 		}
-		p.sendMessage("§6Deine Spielerdatei wurde gefunden! §aPositiv");
+		p.sendMessage("¤6Deine Spielerdatei wurde gefunden! ¤aPositiv");
 	}
 	public static void checkConfigs() {
 		File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//config.yml");
@@ -76,7 +81,7 @@ public class FCIPVP extends JavaPlugin {
 			}
 		}
 		for(Player p : Bukkit.getOnlinePlayers()) {
-			p.sendMessage("§6Die FCI-PvP Configs wurde gefunden! §aPositiv");
+			p.sendMessage("¤6Die FCI-PvP Configs wurde gefunden! ¤aPositiv");
 		}
 	}
 	

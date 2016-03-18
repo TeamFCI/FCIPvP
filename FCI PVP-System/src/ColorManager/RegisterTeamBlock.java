@@ -24,10 +24,10 @@ public class RegisterTeamBlock implements Listener {
 						blockLoc.getBlock().setType(Material.WOOL);
 						double coreState = ColorManager.editor.get(p);
 						ColorManager.setTeamBlock(blockLoc, p, coreState);
-						p.sendMessage("§aColorManager-Marker zum CoreState hinzugefügt!");
-						p.sendMessage("§aDein CoreState: §e"+coreState);
+						p.sendMessage("¤aColorManager-Marker zum CoreState hinzugefügt!");
+						p.sendMessage("¤aDein CoreState: ¤e"+coreState);
 					} else {
-						p.sendMessage("§a/fcipvp colormanager editor (0.0->100.0)|exit");
+						p.sendMessage("¤a/fcipvp colormanager editor (0.0->100.0)|exit");
 					}
 				}
 			}
