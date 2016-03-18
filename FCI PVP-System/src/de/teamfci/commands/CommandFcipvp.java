@@ -7,10 +7,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import ColorManager.CommandFunctions;
 import de.teamfci.dataprovider.dataprovider;
 
 public class CommandFcipvp implements CommandExecutor {
 	static String prefix = "§a[§bFCI PVP§a] §b";
+	CommandFunctions cf = new CommandFunctions();
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -33,8 +35,8 @@ public class CommandFcipvp implements CommandExecutor {
 					p.sendMessage(prefix + "/fcipvp topten");
 					p.sendMessage(prefix + "/fcipvp tournament on|off");
 					p.sendMessage(prefix + "/fcipvp reload");
+					p.sendMessage(prefix + "/fcipvp colormanager editor (0.0->100.0)|exit");
 					p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
-					
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
 				}
@@ -129,6 +131,20 @@ public class CommandFcipvp implements CommandExecutor {
 							}
 							if(team.equalsIgnoreCase("rot")) {
 								dataprovider.setSpawnLocation(team, p.getLocation(), p);
+							}
+						}
+					}
+				} else {
+					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
+				}
+				if(p.hasPermission("fci.pvp.colormanager.editor")) {
+					if(args[0].equalsIgnoreCase("colormanager")) {
+						if(args[1].equalsIgnoreCase("editor")) {
+							if(args[2].equalsIgnoreCase("exit")) {
+								cf.exitEditor(p);
+							} else {
+								double coreState = Double.valueOf(args[2]);
+								cf.joinEditor(p, coreState);
 							}
 						}
 					}

@@ -19,35 +19,31 @@ public class DamageIndicator {
 	}
 	
 	public static void indicator(final Entity damager, Entity entity, final double damage) {
-		final Location loc = entity.getLocation();	
+		final Location loc = entity.getLocation();
+		loc.setY(loc.getY() + 0.4);
 		Random r = new Random();
 		double x = r.nextInt(2);
-		double y = r.nextInt(2);
 		double z = r.nextInt(1);
 		int b = r.nextInt(4);
 		if(b == 0) {
 			loc.setX(loc.getX() + x);
-			loc.setY(loc.getY() + y);
 			loc.setZ(loc.getZ() + z);
 		}
 		if(b == 1) {
 			loc.setX(loc.getX() - x);
-			loc.setY(loc.getY() - y);
 			loc.setZ(loc.getZ() - z);
 		}
 		if(b == 2) {
 			loc.setX(loc.getX() - x);
-			loc.setY(loc.getY() - y);
 			loc.setZ(loc.getZ() + z);
 		}
 		if(b == 3) {
 			loc.setX(loc.getX() + x);
-			loc.setY(loc.getY() + y);
 			loc.setZ(loc.getZ() - z);
 		}
 		final ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
 		armorStand.setGravity(false);
-		armorStand.setCustomName("¤c-"+(int)damage);
+		armorStand.setCustomName("§c-"+(int)damage);
 		armorStand.setCustomNameVisible(true);
 		armorStand.setVisible(false);
 		showDmg.put(damager.getName(), new BukkitRunnable() {
