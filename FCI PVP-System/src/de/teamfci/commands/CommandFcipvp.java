@@ -2,6 +2,7 @@ package de.teamfci.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +22,7 @@ public class CommandFcipvp implements CommandExecutor {
 		if(sender instanceof Player) {
 			final Player p = (Player) sender; 
 			if(args.length == 0) {
-				if(p.hasPermission("fci.fcipvp.fcipvp")) {					
+				if(p.hasPermission("fci.fcipvp.fcipvp")) {
 					p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
 					p.sendMessage("§bPlugin von §aTeamFCI");
 					p.sendMessage("§bAuftrag von §aTNT_Creepy");
@@ -31,12 +32,13 @@ public class CommandFcipvp implements CommandExecutor {
 					}
 					p.sendMessage(prefix + "/fcipvp start");
 					p.sendMessage(prefix + "/fcipvp stop");
-					p.sendMessage(prefix + "/fcipvp set spawn (Team)|world|time|stats|Flag Value");
+					p.sendMessage(prefix + "/fcipvp set spawn (Team)|time|stats|Flag Value|Area1|Area2");
 					p.sendMessage(prefix + "/fcipvp debug");
 					p.sendMessage(prefix + "/fcipvp topten");
 					p.sendMessage(prefix + "/fcipvp tournament on|off");
 					p.sendMessage(prefix + "/fcipvp reload");
-					p.sendMessage(prefix + "/fcipvp colormanager editor (0.0->100.0)|exit");
+					p.sendMessage(prefix + "/fcipvp color editor (0.0->100.0)|exit");
+					p.sendMessage(prefix + "/fcipvp enable on|off");
 					p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
@@ -110,9 +112,23 @@ public class CommandFcipvp implements CommandExecutor {
 				if(p.hasPermission("fci.fcipvp.set.spawn")) {
 					if(args[0].equalsIgnoreCase("set")) {
 						if(args[1].equalsIgnoreCase("spawn")) {
-							p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");	
+							p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
 							p.sendMessage(prefix + "/fcipvp set spawn (Team)");
-							p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");	
+							p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
+						}
+					}
+				} else {
+					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
+				}
+				if(p.hasPermission("fci.fcipvp.set.areas")) {
+					if(args[0].equalsIgnoreCase("set")) {
+						if(args[1].equalsIgnoreCase("area1")) {
+							dataprovider.setAreaLocation(p.getLocation(), p, "Area1");
+							p.sendMessage("§aArea1(Eckpunkt) wurde gesetzt!");
+						}
+						if(args[1].equalsIgnoreCase("area2")) {
+							dataprovider.setAreaLocation(p.getLocation(), p, "Area2");
+							p.sendMessage("§aArea2(Eckpunkt) wurde gesetzt!");
 						}
 					}
 				} else {
@@ -122,10 +138,12 @@ public class CommandFcipvp implements CommandExecutor {
 					if(args[0].equalsIgnoreCase("enable")) {
 						if(args[1].equalsIgnoreCase("off")) {
 							ColorManager.enable = false;
+							ColorManager.d = 0.0;
 							p.sendMessage(prefix + "§aColorManager disabled");
 						}
 						if(args[1].equalsIgnoreCase("on")) {
 							ColorManager.enable = true;
+							ColorManager.d = 0.0;
 							p.sendMessage(prefix + "§aColorManager enabled");
 						}
 					}
@@ -153,7 +171,7 @@ public class CommandFcipvp implements CommandExecutor {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
 				}
 				if(p.hasPermission("fci.pvp.colormanager.editor")) {
-					if(args[0].equalsIgnoreCase("colormanager")) {
+					if(args[0].equalsIgnoreCase("color")) {
 						if(args[1].equalsIgnoreCase("editor")) {
 							if(args[2].equalsIgnoreCase("exit")) {
 								cf.exitEditor(p);

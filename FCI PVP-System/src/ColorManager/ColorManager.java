@@ -21,10 +21,11 @@ public class ColorManager {
 	public ColorManager(FCIPVP pl) {
 		this.pl = pl;
 	}
-	static /*
+	static ArrayList<Double> usedCoreState = new ArrayList<Double>();
+    /*
 	 * Is one Player in EnerbyCore Field
 	 */
-	boolean inField = false;
+	static boolean inField = false;
 	static Player inFieldPlayer = null;
 	/*
 	 * ColorManager-Timer
@@ -36,27 +37,62 @@ public class ColorManager {
 	 * CoreState-Editor
 	 */
 	public static HashMap<Player, Double> editor = new HashMap<Player, Double>();
-//	public static ArrayList<String> editorList = new ArrayList<String>();
+	/*
+	 * CoreState-Editor
+	 */
+	public static double d = 0.0;
 	/*
 	 * Current Color Level
 	 */
 	double color = 0.0;
 	public static void setColorLevel(double coreState) {
 		if(inField == true) {
-			File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+coreState+"%.yml");
-			FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-			int b = cfg.getInt("EnergyCore.ColorManager.TotalAmount");
-			for(int i = 0; i < b; i++) {
-				double x = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.X");
-				double y = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Y");
-				double z = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Z");
-				float yaw = (float) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Yaw");
-				float pitch = (float) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Pitch");
-				String w = cfg.getString("EnergyCore.ColorManager.Wool."+i+".Location.World");
-				World world = (World) Bukkit.getWorld(w);
-				Location loc = new Location(world, x, y, z, yaw, pitch);
-				loc.getBlock().setType(Material.LAPIS_BLOCK);
-				Bukkit.broadcastMessage("block 1.0% Amount "+i);
+			if(coreState == 333.3) {
+				for(int a = 0; a < 200; a++) {
+					double v = d + 0.01; 
+					v = Math.round(100.0 * v) / 100.0;
+					d = v;
+					File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+d+"%.yml");
+					if(!usedCoreState.contains(d) && file.exists()) {
+						usedCoreState.add(d);
+						File f = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+d+"%.yml");
+						FileConfiguration cfg = YamlConfiguration.loadConfiguration(f);
+						int b = cfg.getInt("EnergyCore.ColorManager.TotalAmount");
+						for(int i = 1; i < b+1; i++) {
+							double x = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.X");
+							double y = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Y");
+							double z = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Z");
+							String w = cfg.getString("EnergyCore.ColorManager.Wool."+i+".Location.World");
+							World world = Bukkit.getWorld(w);
+							Location loc = new Location(world, x, y, z);
+							loc.getBlock().setType(Material.LAPIS_BLOCK);
+						}
+						break;
+					}
+					if(d == 100.0) {
+						Bukkit.broadcastMessage("100%");
+						enable = false;
+						d = 0.0;
+					}
+				}
+			} else {
+				File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+coreState+"%.yml");
+				FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+				int b = cfg.getInt("EnergyCore.ColorManager.TotalAmount");
+				for(int i = 1; i < b+1; i++) {
+					double x = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.X");
+					double y = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Y");
+					double z = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Z");
+					String w = cfg.getString("EnergyCore.ColorManager.Wool."+i+".Location.World");
+					Bukkit.broadcastMessage("TeamBlock Current ID: " + i);
+					Bukkit.broadcastMessage("a x:"+x+" y:"+y+" z:"+z+" world:"+w);
+					World world = Bukkit.getWorld(w);
+					Bukkit.broadcastMessage("b");
+					Location loc = new Location(world, x, y, z);
+					Bukkit.broadcastMessage("c");
+					loc.getBlock().setType(Material.LAPIS_BLOCK);
+					Bukkit.broadcastMessage("block 1.0% Amount "+i);
+				}
 			}
 		}
 	}
@@ -66,13 +102,12 @@ public class ColorManager {
 		FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 		int b = cfg.getInt("EnergyCore.ColorManager.TotalAmount");
 		b = b + 1;
+		String n = b+"";
 		cfg.set("EnergyCore.ColorManager.TotalAmount", b);
-		cfg.set("EnergyCore.ColorManager.Wool."+b+".Location.X", loc.getX());
-		cfg.set("EnergyCore.ColorManager.Wool."+b+".Location.Y", loc.getY());
-		cfg.set("EnergyCore.ColorManager.Wool."+b+".Location.Z", loc.getZ());
-		cfg.set("EnergyCore.ColorManager.Wool."+b+".Location.Yaw", loc.getYaw());
-		cfg.set("EnergyCore.ColorManager.Wool."+b+".Location.Pitch", loc.getPitch());
-		cfg.set("EnergyCore.ColorManager.Wool."+b+".Location.World", loc.getWorld().getName());
+		cfg.set("EnergyCore.ColorManager.Wool."+n+".Location.X", loc.getX());
+		cfg.set("EnergyCore.ColorManager.Wool."+n+".Location.Y", loc.getY());
+		cfg.set("EnergyCore.ColorManager.Wool."+n+".Location.Z", loc.getZ());
+		cfg.set("EnergyCore.ColorManager.Wool."+n+".Location.World", loc.getWorld().getName().toString());
 		try {
 			cfg.save(file);
 		} catch (IOException e) {
@@ -85,7 +120,7 @@ public class ColorManager {
 //			Bukkit.broadcastMessage("§cPath: §7plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+coreState+".yml");
 //			Bukkit.broadcastMessage("§ckonnte nicht gefunden werden!");
 //		}
-		p.sendMessage("§aColorManager-Marker fŸr CoreSate.'§f"+coreState+"%§a' wurde gesetzt!");
+		p.sendMessage("§aColorManager-Marker für CoreSate.'§f"+coreState+"%§a' wurde gesetzt!");
 	}
 	
 	public static void enableColorChanging() {
@@ -93,12 +128,9 @@ public class ColorManager {
 			@Override
 			public void run() {
 				if(enable == true) {
-					Bukkit.broadcastMessage("1");
 					if(inFieldPlayer != null) {
 						if(inFieldPlayer.hasPermission("fci.pvp.infield")) {
-							Bukkit.broadcastMessage("1.1");
-							inFieldPlayer.sendMessage("inField = true | Player inField = " + inFieldPlayer.getName());
-							setColorLevel(1.0);
+							setColorLevel(333.3);
 						}
 					}
 				}

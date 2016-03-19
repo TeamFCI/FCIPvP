@@ -21,7 +21,6 @@ public class EnergyCore {
 	public static void setFlagState() {
 		String state = "100";
 	}
-	
 	public static int getFlagStateINTEGER() {
 		int state = 100;
 		return state;

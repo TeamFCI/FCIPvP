@@ -17,11 +17,24 @@ public class inFieldChecker implements Listener {
 		if(ColorManager.enable == false) {
 			return;
 		}
+//		Location min = dataprovider.getLocation("EnergyCore//area.yml", p, "Area1.Location");
+//		Location max = dataprovider.getLocation("EnergyCore//area.yml", p, "Area2.Location");
+//		for(int x = min.getBlockX(); x <= max.getBlockX(); x++){
+//		    for(int y = min.getBlockY(); y <= max.getBlockY(); y++){
+//		        for(int z = min.getBlockZ(); z <= max.getBlockZ(); z++){
+//		            Location loc = new Location(min.getWorld(), x, y, z);
+//		            Location pLoc = p.getLocation();
+//		            if(loc.equals(pLoc)) {
+//		            	p.sendMessage("Jop!");
+//		            }
+//		        }
+//		    }
+//		}
 		int maxPlayers = Bukkit.getOnlinePlayers().size();
 		int i = 0;
 		i = i + 1;
 		Location loc = p.getLocation();
-		loc.setY(loc.getY() - 1);
+		loc.setY(loc.getY() - 2);
 		Block block1 = loc.getBlock();
 		loc.setY(loc.getY() - 1);
 		Block block2 = loc.getBlock();
@@ -33,7 +46,6 @@ public class inFieldChecker implements Listener {
 					ColorManager.inField = true;
 					ColorManager.inFieldPlayer = p;
 					ColorManager.infieldplayers.add(p.getName());
-					Bukkit.broadcastMessage("§aiFP == " + p);
 				} else {
 					if(i == maxPlayers) {
 						ColorManager.inField = false;
