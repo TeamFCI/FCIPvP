@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -18,6 +19,7 @@ import de.teamfci.fcipvp.FCIPVP;
 
 public class ColorManager {
 	public static FCIPVP pl;
+	@SuppressWarnings("static-access")
 	public ColorManager(FCIPVP pl) {
 		this.pl = pl;
 	}
@@ -27,6 +29,11 @@ public class ColorManager {
 	 */
 	static boolean inField = false;
 	static Player inFieldPlayer = null;
+	/*
+	 * Custom Blocks
+	 */
+	public static HashMap<String, Integer> customBlocks = new HashMap<String, Integer>();
+	public static boolean toogleCustomBlock = false;
 	/*
 	 * ColorManager-Timer
 	 */
@@ -45,6 +52,7 @@ public class ColorManager {
 	 * Current Color Level
 	 */
 	double color = 0.0;
+	@SuppressWarnings("deprecation")
 	public static void setColorLevel(double coreState) {
 		if(inField == true) {
 			if(coreState == 333.3) {
@@ -65,7 +73,12 @@ public class ColorManager {
 							String w = cfg.getString("EnergyCore.ColorManager.Wool."+i+".Location.World");
 							World world = Bukkit.getWorld(w);
 							Location loc = new Location(world, x, y, z);
-							loc.getBlock().setType(Material.LAPIS_BLOCK);
+							String blockID = cfg.getString("EnergyCore.ColorManager.Wool."+i+".CustomBlock");
+							String[] array = blockID.split(":");
+							int id = Integer.valueOf(array[0]);
+							int subid = Integer.valueOf(array[1]);
+							loc.getBlock().setTypeId(id);
+							loc.getBlock().setData((byte) subid);
 						}
 						break;
 					}
@@ -108,6 +121,10 @@ public class ColorManager {
 		cfg.set("EnergyCore.ColorManager.Wool."+n+".Location.Y", loc.getY());
 		cfg.set("EnergyCore.ColorManager.Wool."+n+".Location.Z", loc.getZ());
 		cfg.set("EnergyCore.ColorManager.Wool."+n+".Location.World", loc.getWorld().getName().toString());
+		int id = customBlocks.get(p.getName()+":ID");
+		int subid = customBlocks.get(p.getName()+":SubID");
+		String s = id+":"+subid;
+		cfg.set("EnergyCore.ColorManager.Wool."+n+".CustomBlock", s);
 		try {
 			cfg.save(file);
 		} catch (IOException e) {

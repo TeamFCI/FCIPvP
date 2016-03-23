@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -123,6 +122,8 @@ public class effectlib implements CommandExecutor {
 				 WarpEffect effect = new WarpEffect(pl.em);
 				 DynamicLocation loc = new DynamicLocation(p.getLocation());
 					effect.setDynamicOrigin(loc);
+					effect.radius = 7;
+					effect.iterations = 10;
 					effect.start();
 			}
 			if(args[0].equals("ball")) {
@@ -237,6 +238,8 @@ public class effectlib implements CommandExecutor {
 				 HelixEffect effect = new HelixEffect(pl.em);
 				 DynamicLocation loc = new DynamicLocation(p.getLocation());
 					effect.setDynamicOrigin(loc);
+					effect.radius = 7;
+					effect.particle = ParticleEffect.FIREWORKS_SPARK;
 					effect.start();
 			}
 			if(args[0].equals("fontain")) {
@@ -414,5 +417,7 @@ public class effectlib implements CommandExecutor {
 		
 	return false;	
 	}
+	
+
 	
 }

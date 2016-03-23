@@ -21,6 +21,7 @@ import de.slikey.effectlib.EffectManager;
 import de.teamfci.commands.CommandFcipvp;
 import de.teamfci.commands.effectlib;
 import de.teamfci.displayDamage.DamageIndicator;
+import de.teamfci.events.ArrowHitEvent;
 import de.teamfci.events.DamageIndicatorEvent;
 import de.teamfci.events.ShieldActivateEvent;
 
@@ -38,12 +39,14 @@ public class FCIPVP extends JavaPlugin {
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvents(new ShieldActivateEvent(this), this);
 		pm.registerEvents(new DamageIndicatorEvent(), this);
-		pm.registerEvents(new RegisterTeamBlock(), this);
-		pm.registerEvents(new inFieldChecker(), this);
+		pm.registerEvents(new RegisterTeamBlock(this), this);
+		pm.registerEvents(new inFieldChecker(this), this);
+		pm.registerEvents(new ArrowHitEvent(), this);
 		this.getCommand("fcipvp").setExecutor(new CommandFcipvp());
 		this.getCommand("par").setExecutor(new effectlib(this));
 		DamageIndicator.pl = this;
 		ColorManager.pl = this;
+		inFieldChecker.pl = this;
 		ColorManager.enableColorChanging();
 		EnergyCore.checkEnergyCoreConfig();
 	}

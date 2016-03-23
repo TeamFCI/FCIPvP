@@ -2,14 +2,14 @@ package de.teamfci.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import ColorManager.CommandFunctions;
 import ColorManager.ColorManager;
+import ColorManager.CommandFunctions;
+import ColorManager.inFieldChecker;
 import de.teamfci.dataprovider.dataprovider;
 
 public class CommandFcipvp implements CommandExecutor {
@@ -38,6 +38,7 @@ public class CommandFcipvp implements CommandExecutor {
 					p.sendMessage(prefix + "/fcipvp tournament on|off");
 					p.sendMessage(prefix + "/fcipvp reload");
 					p.sendMessage(prefix + "/fcipvp color editor (0.0->100.0)|exit");
+					p.sendMessage(prefix + "/fcipvp color editor toggleblock (BlockID:SubID) true|false");
 					p.sendMessage(prefix + "/fcipvp enable on|off");
 					p.sendMessage("§a§l *-*-*-*-*-*-*-*-*-*-*-*");
 				} else {
@@ -144,6 +145,7 @@ public class CommandFcipvp implements CommandExecutor {
 						if(args[1].equalsIgnoreCase("on")) {
 							ColorManager.enable = true;
 							ColorManager.d = 0.0;
+							ColorManager.enableColorChanging();
 							p.sendMessage(prefix + "§aColorManager enabled");
 						}
 					}
@@ -175,6 +177,56 @@ public class CommandFcipvp implements CommandExecutor {
 						if(args[1].equalsIgnoreCase("editor")) {
 							if(args[2].equalsIgnoreCase("exit")) {
 								cf.exitEditor(p);
+							} else {
+								double coreState = Double.valueOf(args[2]);
+								cf.joinEditor(p, coreState);
+							}
+						}
+					}
+				} else {
+					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
+				}
+			}
+			if(args.length == 4) {
+				if(p.hasPermission("fci.pvp.colormanager.editor.toggleblock")) {
+					if(args[0].equalsIgnoreCase("color")) {
+						if(args[1].equalsIgnoreCase("editor")) {
+							if(args[2].equalsIgnoreCase("toggleblock")) {
+								if(args[3].equalsIgnoreCase("remove")) {
+									p.sendMessage("§aToggleblock wurde removed! Default: WOOL(35:0)");
+									return true;
+								}
+								String BlockId = args[3];
+								String[] array = BlockId.split(":");
+								int id = 0;
+								int subid = 0;
+								try {
+									id = Integer.valueOf(array[0]);
+								}catch(Exception ex) {
+									p.sendMessage("§cDie ID darf nur aus Ziffern bestehen");
+									return true;
+								}
+								try {
+									subid = Integer.valueOf(array[1]);
+								}catch(Exception ex) {
+									p.sendMessage("§cDie SubID darf nur aus Ziffern bestehen");
+									return true;
+								}
+								p.sendMessage("§aToggleblock: "+id+":"+subid);
+								if(!ColorManager.customBlocks.containsKey(p.getName()+":ID")) {
+									ColorManager.customBlocks.put(p.getName()+":ID", id);
+								}
+								if(!ColorManager.customBlocks.containsKey(p.getName()+":SubID")) {
+									ColorManager.customBlocks.put(p.getName()+":SubID", subid);
+								}
+								if(ColorManager.customBlocks.containsKey(p.getName()+":ID")) {
+									ColorManager.customBlocks.remove(p.getName()+":ID");
+									ColorManager.customBlocks.put(p.getName()+":ID", id);
+								}
+								if(ColorManager.customBlocks.containsKey(p.getName()+":SubID")) {
+									ColorManager.customBlocks.remove(p.getName()+":SubID");
+									ColorManager.customBlocks.put(p.getName()+":SubID", subid);
+								}
 							} else {
 								double coreState = Double.valueOf(args[2]);
 								cf.joinEditor(p, coreState);

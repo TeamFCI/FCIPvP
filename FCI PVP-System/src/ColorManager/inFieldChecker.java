@@ -1,58 +1,93 @@
 package ColorManager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import de.teamfci.fcipvp.FCIPVP;
 
 public class inFieldChecker implements Listener {
 	
+	public static FCIPVP pl;
+	@SuppressWarnings("static-access")
+	public inFieldChecker(FCIPVP pl) {
+		this.pl = pl;
+	}
+	static HashMap<String, BukkitRunnable> checker = new HashMap<String, BukkitRunnable>();
+	static ArrayList<String> list = new ArrayList<String>();
+	
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
-		Player p = (Player) e.getPlayer();
-		if(ColorManager.enable == false) {
-			return;
-		}
-//		Location min = dataprovider.getLocation("EnergyCore//area.yml", p, "Area1.Location");
-//		Location max = dataprovider.getLocation("EnergyCore//area.yml", p, "Area2.Location");
-//		for(int x = min.getBlockX(); x <= max.getBlockX(); x++){
-//		    for(int y = min.getBlockY(); y <= max.getBlockY(); y++){
-//		        for(int z = min.getBlockZ(); z <= max.getBlockZ(); z++){
-//		            Location loc = new Location(min.getWorld(), x, y, z);
-//		            Location pLoc = p.getLocation();
-//		            if(loc.equals(pLoc)) {
-//		            	p.sendMessage("Jop!");
-//		            }
-//		        }
-//		    }
-//		}
-		int maxPlayers = Bukkit.getOnlinePlayers().size();
-		int i = 0;
-		i = i + 1;
+		Player p = e.getPlayer();
 		Location loc = p.getLocation();
-		loc.setY(loc.getY() - 2);
-		Block block1 = loc.getBlock();
-		loc.setY(loc.getY() - 1);
-		Block block2 = loc.getBlock();
-		loc.setY(loc.getY() - 1);
-		Block block3 = loc.getBlock();
-		if(block1.getType() == Material.WOOL) {
-			if(block2.getType() == Material.REDSTONE_BLOCK) {
-				if(block3.getType() == Material.BEDROCK) {
+		loc.add(0,-2,0);
+		if(loc.getBlock().getType() == Material.WOOL) {
+			loc.add(0,-1,0);
+			if(loc.getBlock().getType() == Material.REDSTONE_BLOCK) {
+				loc.add(0,-1,0);
+				if(loc.getBlock().getType() == Material.BEDROCK) {
 					ColorManager.inField = true;
 					ColorManager.inFieldPlayer = p;
-					ColorManager.infieldplayers.add(p.getName());
-				} else {
-					if(i == maxPlayers) {
-						ColorManager.inField = false;
-					}
 				}
 			}
 		}
 	}
+	
+//	public static void start() {
+//		checker.put("delay", new BukkitRunnable() {
+//			@Override
+//			public void run() {
+//				if(ColorManager.enable == true) {
+//					if(!list.contains("yes")) {
+//						list.add("yes");
+//						checker.put("check", new BukkitRunnable() {
+//							@Override
+//							public void run() {
+//								if(ColorManager.enable == true) {
+//									for(Player target : Bukkit.getOnlinePlayers()) {
+//										Location loc = target.getLocation();
+//										loc.add(0,-2,0);
+//										if(loc.getBlock().getType() == Material.WOOL) {
+//											loc.add(0,-1,0);
+//											if(loc.getBlock().getType() == Material.REDSTONE_BLOCK) {
+//												loc.add(0,-1,0);
+//												if(loc.getBlock().getType() == Material.BEDROCK) {
+//													ColorManager.inFieldPlayer = target;
+//													list.remove("yes");
+//													stop();
+//												} else {
+//													ColorManager.inFieldPlayer = null;
+//												}
+//											} else {
+//												ColorManager.inFieldPlayer = null;
+//											}
+//										} else {
+//											ColorManager.inFieldPlayer = null;
+//										}
+//									}
+//								}
+//							}
+//							
+//						});
+//						checker.get("check").runTaskTimer(pl, 20L, 20L);
+//					}
+//				}
+//			}
+//			
+//		});
+//		checker.get("delay").runTaskTimer(pl, 30L, 30L);
+//	}
+//		
+//	public static void stop() {
+//		checker.get("check").cancel();
+//	}
 	
 }

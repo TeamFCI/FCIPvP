@@ -23,7 +23,7 @@ public class DamageIndicator {
 		loc.setY(loc.getY() + 0.4);
 		Random r = new Random();
 		double x = r.nextInt(2);
-		double z = r.nextInt(1);
+		double z = r.nextInt(2);
 		int b = r.nextInt(4);
 		if(b == 0) {
 			loc.setX(loc.getX() + x);
@@ -43,7 +43,7 @@ public class DamageIndicator {
 		}
 		final ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
 		armorStand.setGravity(false);
-		armorStand.setCustomName("�c-"+(int)damage);
+		armorStand.setCustomName("§c-"+(int)damage+"❤");
 		armorStand.setCustomNameVisible(true);
 		armorStand.setVisible(false);
 		showDmg.put(damager.getName(), new BukkitRunnable() {
