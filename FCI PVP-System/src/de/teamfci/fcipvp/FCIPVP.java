@@ -47,7 +47,7 @@ public class FCIPVP extends JavaPlugin {
 		DamageIndicator.pl = this;
 		ColorManager.pl = this;
 		inFieldChecker.pl = this;
-		ColorManager.enableColorChanging();
+		
 		EnergyCore.checkEnergyCoreConfig();
 	}
 	

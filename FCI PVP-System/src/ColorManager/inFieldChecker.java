@@ -27,16 +27,28 @@ public class inFieldChecker implements Listener {
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		Location loc = p.getLocation();
-		loc.add(0,-2,0);
-		if(loc.getBlock().getType() == Material.WOOL) {
-			loc.add(0,-1,0);
-			if(loc.getBlock().getType() == Material.REDSTONE_BLOCK) {
+		for(Player target : Bukkit.getOnlinePlayers()) {
+			Location loc = target.getLocation();
+			loc.add(0,-2,0);
+			if(loc.getBlock().getType() == Material.WOOL) {
 				loc.add(0,-1,0);
-				if(loc.getBlock().getType() == Material.BEDROCK) {
-					ColorManager.inField = true;
-					ColorManager.inFieldPlayer = p;
+				if(loc.getBlock().getType() == Material.REDSTONE_BLOCK) {
+					loc.add(0,-1,0);
+					if(loc.getBlock().getType() == Material.BEDROCK) {
+						ColorManager.inField = true;
+						ColorManager.inFieldPlayer = target;
+						break;
+					} else {
+						ColorManager.inField = false;
+						ColorManager.inFieldPlayer = null;
+					}
+				} else {
+					ColorManager.inField = false;
+					ColorManager.inFieldPlayer = null;
 				}
+			} else {
+				ColorManager.inField = false;
+				ColorManager.inFieldPlayer = null;
 			}
 		}
 	}

@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import ColorManager.ColorManager;
 import de.slikey.effectlib.effect.AnimatedBallEffect;
 import de.slikey.effectlib.effect.ArcEffect;
 import de.slikey.effectlib.effect.AtomEffect;
@@ -112,9 +114,10 @@ public class effectlib implements CommandExecutor {
 			if(args[0].equals("vortex")) {
 				 p.sendMessage("§8§oZauberei!");
 				 VortexEffect effect = new VortexEffect(pl.em);
-				 effect.particle = ParticleEffect.CRIT_MAGIC;
+				 effect.particle = ParticleEffect.SPELL;
 				 DynamicLocation loc = new DynamicLocation(p.getLocation());
 					effect.setDynamicOrigin(loc);
+					effect.color = Color.YELLOW;
 					effect.start();
 			}
 			if(args[0].equals("warp")) {
@@ -231,6 +234,7 @@ public class effectlib implements CommandExecutor {
 				 DynamicLocation loc = new DynamicLocation(l);
 					effect.setDynamicOrigin(loc);
 					effect.particle = ParticleEffect.CRIT_MAGIC;
+					effect.iterations = 15;
 					effect.start();
 			}
 			if(args[0].equals("helix")) {

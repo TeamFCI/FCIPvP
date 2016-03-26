@@ -140,11 +140,21 @@ public class CommandFcipvp implements CommandExecutor {
 						if(args[1].equalsIgnoreCase("off")) {
 							ColorManager.enable = false;
 							ColorManager.d = 0.0;
+							if(!ColorManager.chooser.isEmpty()) {
+								ColorManager.chooser.get("ColorChooser").cancel();
+								ColorManager.chooser.clear();
+							}
+							ColorManager.chooser.clear();
 							p.sendMessage(prefix + "§aColorManager disabled");
 						}
 						if(args[1].equalsIgnoreCase("on")) {
 							ColorManager.enable = true;
 							ColorManager.d = 0.0;
+							ColorManager.usedCoreState.clear();
+							if(!ColorManager.chooser.isEmpty()) {
+								ColorManager.chooser.get("ColorChooser").cancel();
+								ColorManager.chooser.clear();
+							}
 							ColorManager.enableColorChanging();
 							p.sendMessage(prefix + "§aColorManager enabled");
 						}

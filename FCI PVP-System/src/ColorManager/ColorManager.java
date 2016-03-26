@@ -23,7 +23,7 @@ public class ColorManager {
 	public ColorManager(FCIPVP pl) {
 		this.pl = pl;
 	}
-	static ArrayList<Double> usedCoreState = new ArrayList<Double>();
+	public static ArrayList<Double> usedCoreState = new ArrayList<Double>();
     /*
 	 * Is one Player in EnerbyCore Field
 	 */
@@ -38,7 +38,7 @@ public class ColorManager {
 	 * ColorManager-Timer
 	 */
 	static ArrayList<String> infieldplayers = new ArrayList<String>();
-	static HashMap<String, BukkitRunnable> chooser = new HashMap<String, BukkitRunnable>();
+	public static HashMap<String, BukkitRunnable> chooser = new HashMap<String, BukkitRunnable>();
 	public static boolean enable = false;
 	/*
 	 * CoreState-Editor
@@ -56,30 +56,14 @@ public class ColorManager {
 	public static void setColorLevel(double coreState) {
 		if(inField == true) {
 			if(coreState == 333.3) {
-				for(int a = 0; a < 200; a++) {
+				for(int a = 0; a < 10000; a++) {
 					double v = d + 0.01; 
 					v = Math.round(100.0 * v) / 100.0;
 					d = v;
 					File file = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+d+"%.yml");
 					if(!usedCoreState.contains(d) && file.exists()) {
 						usedCoreState.add(d);
-						File f = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+d+"%.yml");
-						FileConfiguration cfg = YamlConfiguration.loadConfiguration(f);
-						int b = cfg.getInt("EnergyCore.ColorManager.TotalAmount");
-						for(int i = 1; i < b+1; i++) {
-							double x = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.X");
-							double y = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Y");
-							double z = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Z");
-							String w = cfg.getString("EnergyCore.ColorManager.Wool."+i+".Location.World");
-							World world = Bukkit.getWorld(w);
-							Location loc = new Location(world, x, y, z);
-							String blockID = cfg.getString("EnergyCore.ColorManager.Wool."+i+".CustomBlock");
-							String[] array = blockID.split(":");
-							int id = Integer.valueOf(array[0]);
-							int subid = Integer.valueOf(array[1]);
-							loc.getBlock().setTypeId(id);
-							loc.getBlock().setData((byte) subid);
-						}
+						setWool(d);
 						break;
 					}
 					if(d == 100.0) {
@@ -107,6 +91,27 @@ public class ColorManager {
 					Bukkit.broadcastMessage("block 1.0% Amount "+i);
 				}
 			}
+		}
+	}
+	
+	public static void setWool(double d) {
+		Bukkit.broadcastMessage("§aEnergyCre State:§e "+d+"%");
+		File f = new File("plugins//Fortress-Combat-System//Fortress-Combat-PvP-System//EnergyCore//ColorManager//Wool Blocks//FlagState - "+d+"%.yml");
+		FileConfiguration cfg = YamlConfiguration.loadConfiguration(f);
+		int b = cfg.getInt("EnergyCore.ColorManager.TotalAmount");
+		for(int i = 1; i < b+1; i++) {
+			double x = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.X");
+			double y = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Y");
+			double z = (double) cfg.getInt("EnergyCore.ColorManager.Wool."+i+".Location.Z");
+			String w = cfg.getString("EnergyCore.ColorManager.Wool."+i+".Location.World");
+			World world = Bukkit.getWorld(w);
+			Location loc = new Location(world, x, y, z);
+			String blockID = cfg.getString("EnergyCore.ColorManager.Wool."+i+".CustomBlock");
+			String[] array = blockID.split(":");
+			int id = Integer.valueOf(array[0]);
+			int subid = Integer.valueOf(array[1]);
+			loc.getBlock().setTypeId(id);
+			loc.getBlock().setData((byte) subid);
 		}
 	}
 	
