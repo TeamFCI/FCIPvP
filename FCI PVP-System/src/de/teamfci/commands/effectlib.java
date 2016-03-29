@@ -11,8 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
-import ColorManager.ColorManager;
 import de.slikey.effectlib.effect.AnimatedBallEffect;
 import de.slikey.effectlib.effect.ArcEffect;
 import de.slikey.effectlib.effect.AtomEffect;
@@ -233,9 +233,11 @@ public class effectlib implements CommandExecutor {
 //				 l.setPitch(-90);
 				 DynamicLocation loc = new DynamicLocation(l);
 					effect.setDynamicOrigin(loc);
-					effect.particle = ParticleEffect.CRIT_MAGIC;
-					effect.iterations = 15;
+					effect.particle = ParticleEffect.ENCHANTMENT_TABLE;
+					effect.particlesCone = 400;
+					effect.visibleRange = 50;
 					effect.start();
+				
 			}
 			if(args[0].equals("helix")) {
 				 p.sendMessage("§8§oZauberei!");

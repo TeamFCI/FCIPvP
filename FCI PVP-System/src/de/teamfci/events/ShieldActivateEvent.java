@@ -1,6 +1,7 @@
 
 package de.teamfci.events;
 
+import java.awt.RadialGradientPaint;
 import java.io.File;
 import java.util.HashMap;
 
