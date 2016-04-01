@@ -121,20 +121,6 @@ public class CommandFcipvp implements CommandExecutor {
 				} else {
 					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
 				}
-				if(p.hasPermission("fci.fcipvp.set.areas")) {
-					if(args[0].equalsIgnoreCase("set")) {
-						if(args[1].equalsIgnoreCase("area1")) {
-							dataprovider.setAreaLocation(p.getLocation(), p, "Area1");
-							p.sendMessage("§aArea1(Eckpunkt) wurde gesetzt!");
-						}
-						if(args[1].equalsIgnoreCase("area2")) {
-							dataprovider.setAreaLocation(p.getLocation(), p, "Area2");
-							p.sendMessage("§aArea2(Eckpunkt) wurde gesetzt!");
-						}
-					}
-				} else {
-					p.sendMessage("§cFehler: Du hast nicht die Permission dazu!");
-				}
 				if(p.hasPermission("fci.fcipvp.turn.colormanager")) {
 					if(args[0].equalsIgnoreCase("enable")) {
 						if(args[1].equalsIgnoreCase("off")) {
